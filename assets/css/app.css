@@ -15,13 +15,14 @@
         @apply mt-4;
     }
 
-    input {
+    input, textarea {
         @apply p-1 px-2 !important;
     }
 
     input[type="text"],
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    textarea {
         @apply w-full;
     }
 
@@ -57,7 +58,7 @@
         @apply hidden;
     }
     .invalid-feedback {
-        @apply text-rose-900 block -mt-4 mx-0 mb-8;
+        @apply text-rose-900 block;
     }
 
     .box {

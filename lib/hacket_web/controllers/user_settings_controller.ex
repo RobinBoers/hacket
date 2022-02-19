@@ -4,10 +4,24 @@ defmodule HacketWeb.UserSettingsController do
   alias Hacket.Accounts
   alias HacketWeb.UserAuth
 
-  plug :assign_email_and_password_changesets
+  plug :assign_email_profile_and_password_changesets
 
   def edit(conn, _params) do
     render(conn, "edit.html")
+  end
+
+  def update(conn, %{"action" => "update_profile", "user" => %{"description" => description, "profile_picture" => profile_picture, "username" => username}}) do
+    user = conn.assigns.current_user
+
+    case Accounts.update_user_profile(user, username, description, profile_picture) do
+      {:ok, user} ->
+        conn
+        |> assign(:current_user, user)
+        |> redirect(to: Routes.user_settings_path(conn, :edit))
+
+      {:error, changeset} ->
+        render(conn, "edit.html", profile_changeset: changeset)
+    end
   end
 
   def update(conn, %{"action" => "update_email"} = params) do
@@ -64,10 +78,11 @@ defmodule HacketWeb.UserSettingsController do
     end
   end
 
-  defp assign_email_and_password_changesets(conn, _opts) do
+  defp assign_email_profile_and_password_changesets(conn, _opts) do
     user = conn.assigns.current_user
 
     conn
+    |> assign(:profile_changeset, Accounts.change_user_profile(user))
     |> assign(:email_changeset, Accounts.change_user_email(user))
     |> assign(:password_changeset, Accounts.change_user_password(user))
   end

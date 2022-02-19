@@ -1,0 +1,28 @@
+<article class="mt-8 box flex flex-row flex-wrap gap-3 justify-start items-start">
+    <img class="h-24 w-auto" src={@user.profile_picture || "https://avatars.dicebear.com/api/identicon/#{@user.username}.svg?b=%23F9FAFB"}>
+    <div>
+        <p class="text-3xl"><%= String.capitalize(@user.username) %></p>
+        <h2 class="font-bold text-lg">@<%= @user.username %></h2>
+
+        <p class="mt-3 max-w-lg"><%= @user.description || raw("<i class='text-gray-600'>No description available.</i>") %></p>
+    </div>
+</article>
+
+<h2 class="text-xl mt-4">Posts</h2>
+
+<%= for post <- @posts do %>
+
+    <%= if post.body != nil do %>
+
+        <article class="mt-4 box p-3">
+            <div class="flex flex-row items-start gap-2 mb-2">
+                <img class="w-10 h-10 object-cover border" src={@user.profile_picture || "https://avatars.dicebear.com/api/identicon/#{@user.username}.svg?b=%23F9FAFB"}/>
+                <p class="font-semibold text-xl"><%= String.capitalize(@user.username) %></p>
+            </div>
+
+            <div class="max-w-lg"><%= show_content(post) %></div>
+        </article>
+        
+    <% end %>
+
+<% end %>

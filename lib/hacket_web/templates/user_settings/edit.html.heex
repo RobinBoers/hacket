@@ -2,6 +2,37 @@
 
 <article class="box mt-4">
 
+    <h3 class="font-bold text-lg">Profile settings</h3>
+
+    <.form
+      let={f}
+      for={@profile_changeset}
+      action={Routes.user_settings_path(@conn, :update)}
+      id="update_profile"
+	  class="max-w-lg"
+    >
+
+        <%= hidden_input(f, :action, name: "action", value: "update_profile") %>
+
+        <%= label(f, :username) %>
+        <%= text_input(f, :username, required: true) %>
+        <%= error_tag(f, :username) %>
+
+        <%= label(f, :description) %>
+        <%= textarea(f, :description) %>
+        <%= error_tag(f, :description) %>
+
+		<%= label(f, :profile_picture, "Profile picture (include https://)") %>
+        <%= text_input(f, :profile_picture) %>
+        <%= error_tag(f, :profile_picture) %>
+
+        <%= submit("Update profile") %>
+    </.form>
+
+</article>
+
+<article class="box mt-4">
+
     <h3 class="font-bold text-lg">Change email</h3>
 
     <.form

@@ -3,6 +3,10 @@
     <h2 class="font-bold text-xl">Register</h2>
 
     <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)} class="max-w-lg">
+        <%= label(f, :username) %>
+        <%= text_input(f, :username, required: true) %>
+        <%= error_tag(f, :username) %>
+
         <%= label(f, :email) %>
         <%= email_input(f, :email, required: true) %>
         <%= error_tag(f, :email) %>

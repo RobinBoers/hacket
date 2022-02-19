@@ -2,13 +2,36 @@ defmodule Hacket.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Hacket.Posts.Post
+
   schema "users" do
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    field :username, :string
+    field :description, :string
+    field :profile_picture, :string
+    has_many :posts, Post
 
     timestamps()
+  end
+
+  @doc """
+  A user changeset for profile data.
+  """
+  def profile_changeset(user, attrs \\ %{}) do
+    user
+    |> cast(attrs, [:username, :description, :profile_picture])
+    |> validate_username()
+  end
+
+  defp validate_username(changeset) do
+    changeset
+    |> validate_required(:username)
+    |> validate_format(:username, ~r/^[a-z0-9]*$/)
+    |> validate_length(:username, min: 3)
+    |> unique_constraint(:username)
   end
 
   @doc """
@@ -30,7 +53,8 @@ defmodule Hacket.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:username, :email, :password])
+    |> validate_username()
     |> validate_email()
     |> validate_password(opts)
   end
@@ -48,9 +72,9 @@ defmodule Hacket.Accounts.User do
     changeset
     |> validate_required([:password])
     |> validate_length(:password, min: 12, max: 72)
-    # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
-    # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
-    # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
+    |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
+    |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
+    |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
     |> maybe_hash_password(opts)
   end
 

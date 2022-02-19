@@ -2,6 +2,7 @@ defmodule HacketWeb.Router do
   use HacketWeb, :router
 
   import HacketWeb.UserAuth
+  alias HacketWeb.Hooks
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,25 +14,19 @@ defmodule HacketWeb.Router do
     plug :fetch_current_user
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
   scope "/", HacketWeb do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    live "/user/:username", Profile
   end
 
-  # Enables the Swoosh mailbox preview in development.
-  #
-  # Note that preview only shows emails that were sent by the same
-  # node running the Phoenix server.
-  if Mix.env() == :dev do
-    scope "/dev" do
-      pipe_through :browser
+  live_session :default, on_mount: Hooks.FetchUser do
+    scope "/", HacketWeb do
+      pipe_through [:browser, :require_authenticated_user]
 
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
+      live "/post/new", NewPost
     end
   end
 
@@ -66,5 +61,17 @@ defmodule HacketWeb.Router do
     post "/account/confirm", UserConfirmationController, :create
     get "/account/confirm/:token", UserConfirmationController, :edit
     post "/account/confirm/:token", UserConfirmationController, :update
+  end
+
+  # Enables the Swoosh mailbox preview in development.
+  #
+  # Note that preview only shows emails that were sent by the same
+  # node running the Phoenix server.
+  if Mix.env() == :dev do
+    scope "/dev" do
+      pipe_through :browser
+
+      forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
   end
 end

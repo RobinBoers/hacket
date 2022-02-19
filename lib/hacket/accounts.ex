@@ -11,6 +11,22 @@ defmodule Hacket.Accounts do
   ## Database getters
 
   @doc """
+  Gets a user by username.
+
+  ## Examples
+
+      iex> get_user_by_email("robin")
+      %User{}
+
+      iex> get_user_by_email("bob")
+      nil
+
+  """
+  def get_user_by_username(username) when is_binary(username) do
+    Repo.get_by(User, username: username)
+  end
+
+  @doc """
   Gets a user by email.
 
   ## Examples
@@ -60,6 +76,22 @@ defmodule Hacket.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  @doc """
+  Gets a single user.
+
+  Raises nil if the User does not exist.
+
+  ## Examples
+
+      iex> get_user(123)
+      %User{}
+
+      iex> get_user(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_user(id), do: Repo.get(User, id)
+
   ## User registration
 
   @doc """
@@ -94,6 +126,30 @@ defmodule Hacket.Accounts do
   end
 
   ## Settings
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for changing the user profile.
+
+  ## Examples
+
+      iex> change_user_profile(user)
+      %Ecto.Changeset{data: %User{}}
+
+  """
+  def change_user_profile(user, attrs \\ %{}) do
+    User.profile_changeset(user, attrs)
+  end
+
+  @doc """
+  Updates the user profile.
+
+  ## Examples
+
+  """
+  def update_user_profile(user, username, description, profile_picture) do
+    User.profile_changeset(user, %{username: username, description: description, profile_picture: profile_picture})
+    |> Repo.update()
+  end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for changing the user email.
