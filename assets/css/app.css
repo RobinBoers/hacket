@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    a {
+        @apply text-teal-600 hover:underline hover:text-teal-500 focus:text-teal-500;
+    }
+
+    label {
+        @apply block;
+    }
+
+    label:not(:first-of-type) {
+        @apply mt-4;
+    }
+
+    input {
+        @apply p-1 px-2 !important;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        @apply w-full;
+    }
+
+    form {
+        @apply my-2;
+    }
+
+    button,
+    [type="button"],
+    [type="reset"],
+    [type="submit"] {
+        @apply block mt-4 bg-gray-300 border border-gray-600 hover:bg-gray-200 transition duration-100 p-1 px-2;
+    }
+}
+
+@layer components {
+    .alert {
+        @apply p-3.5 mb-4 border border-transparent;
+    }
+    .alert-info {
+        @apply text-indigo-900 bg-indigo-200;
+    }
+    .alert-warning {
+        @apply text-amber-900 bg-amber-200;
+    }
+    .alert-danger {
+        @apply text-rose-900 bg-rose-200;
+    }
+    .alert p {
+        @apply mb-0;
+    }
+    .alert:empty {
+        @apply hidden;
+    }
+    .invalid-feedback {
+        @apply text-rose-900 block -mt-4 mx-0 mb-8;
+    }
+
+    .box {
+        @apply bg-gray-200 p-1;
+    }
+
+    /* LiveView */
+
+    .phx-no-feedback.invalid-feedback,
+    .phx-no-feedback .invalid-feedback {
+        @apply hidden;
+    }
+
+    .phx-click-loading {
+        @apply opacity-50 transition-opacity ease-out duration-1000;
+    }
+
+    .phx-loading {
+        @apply cursor-wait;
+    }
+}

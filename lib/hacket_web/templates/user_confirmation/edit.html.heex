@@ -1,0 +1,9 @@
+<article class="box">
+
+    <h2 class="font-bold text-xl">Confirm account</h2>
+
+    <.form let={_f} for={:user} action={Routes.user_confirmation_path(@conn, :update, @token)} class="max-w-lg">
+        <%= submit("Confirm my account") %>
+    </.form>
+
+</article>

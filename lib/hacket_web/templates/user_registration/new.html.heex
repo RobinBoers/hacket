@@ -1,0 +1,24 @@
+<article class="box">
+
+    <h2 class="font-bold text-xl">Register</h2>
+
+    <.form let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)} class="max-w-lg">
+        <%= label(f, :email) %>
+        <%= email_input(f, :email, required: true) %>
+        <%= error_tag(f, :email) %>
+
+        <%= label(f, :password) %>
+        <%= password_input(f, :password, required: true) %>
+        <%= error_tag(f, :password) %>
+
+        <%= submit("Register") %>
+    </.form>
+
+</article>
+
+<aside>
+    <p>
+        <%= link("Log in", to: Routes.user_session_path(@conn, :new)) %> |
+        <%= link("Forgot your password?", to: Routes.user_reset_password_path(@conn, :new)) %>
+    </p>
+</aside>
