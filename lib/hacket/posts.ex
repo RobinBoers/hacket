@@ -42,7 +42,6 @@ defmodule Hacket.Posts do
   """
   def get_post(id), do: Repo.get(Post, id)
 
-
   @doc """
   Returns an `%Ecto.Changeset{}` for changing a post.
 

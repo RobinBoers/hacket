@@ -15,35 +15,44 @@
     <meta name="language" content="English" />
     <meta name="robots" content="index, follow" />
 
-    <link 
-      phx-track-static 
-      rel="stylesheet" 
-      href={Routes.static_path(@conn, "/assets/app.css")} />
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
     <script
       defer
       phx-track-static
       type="text/javascript"
       src={Routes.static_path(@conn, "/assets/app.js")}
-    ></script>
+    >
+    </script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
   </head>
   <body>
     <header class="my-6">
-		<section class="container flex flex-row flex-wrap justify-between items-center">
-			<h1 class="text-4xl font-semibold tracking-tighter font-mono"><a href="/" class="hover:no-underline">&lt;hacket/&gt;</a></h1>
-			<nav>
-				<ul class="flex flex-row flex-wrap gap-6">
-					<%= if @current_user do %>
-						<li><%= @current_user.email %></li>
-						<li><%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %></li>
-						<li><%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %></li>
-					<% else %>
-						<li><%= link("Register", to: Routes.user_registration_path(@conn, :new)) %></li>
-						<li><%= link("Log in", to: Routes.user_session_path(@conn, :new)) %></li>
-					<% end %>
-				</ul>
-			</nav>
-		</section>
+      <section class="container flex flex-row flex-wrap justify-between items-center">
+        <h1 class="text-4xl font-semibold tracking-tighter font-mono">
+          <a href="/" class="hover:no-underline">&lt;hacket/&gt;</a>
+        </h1>
+        <nav>
+          <ul class="flex flex-row flex-wrap gap-6">
+            <%= if @current_user do %>
+              <li><%= @current_user.email %></li>
+              <li><%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %></li>
+              <li>
+                <%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %>
+              </li>
+            <% else %>
+              <li><%= link("Register", to: Routes.user_registration_path(@conn, :new)) %></li>
+              <li><%= link("Log in", to: Routes.user_session_path(@conn, :new)) %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </section>
     </header>
-    <%= @inner_content %>
+    <div class="flex flex-col flex-grow">
+      <%= @inner_content %>
+    </div>
   </body>
 </html>

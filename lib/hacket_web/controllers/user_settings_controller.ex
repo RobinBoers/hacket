@@ -10,7 +10,14 @@ defmodule HacketWeb.UserSettingsController do
     render(conn, "edit.html")
   end
 
-  def update(conn, %{"action" => "update_profile", "user" => %{"description" => description, "profile_picture" => profile_picture, "username" => username}}) do
+  def update(conn, %{
+        "action" => "update_profile",
+        "user" => %{
+          "description" => description,
+          "profile_picture" => profile_picture,
+          "username" => username
+        }
+      }) do
     user = conn.assigns.current_user
 
     case Accounts.update_user_profile(user, username, description, profile_picture) do

@@ -15,6 +15,7 @@ defmodule HacketWeb.NewPost do
       socket
       |> assign(page_title: "New post")
       |> assign(changeset: get_post_changeset())
+
     {:ok, socket}
   end
 

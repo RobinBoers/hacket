@@ -147,7 +147,11 @@ defmodule Hacket.Accounts do
 
   """
   def update_user_profile(user, username, description, profile_picture) do
-    User.profile_changeset(user, %{username: username, description: description, profile_picture: profile_picture})
+    User.profile_changeset(user, %{
+      username: username,
+      description: description,
+      profile_picture: profile_picture
+    })
     |> Repo.update()
   end
 

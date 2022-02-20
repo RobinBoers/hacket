@@ -1,12 +1,15 @@
 <article class="box">
+  <h2 class="font-bold text-xl">Forgot your password?</h2>
 
-    <h2 class="font-bold text-xl">Forgot your password?</h2>
+  <.form
+    let={f}
+    for={:user}
+    action={Routes.user_reset_password_path(@conn, :create)}
+    class="max-w-lg"
+  >
+    <%= label(f, :email) %>
+    <%= email_input(f, :email, required: true) %>
 
-    <.form let={f} for={:user} action={Routes.user_reset_password_path(@conn, :create)} class="max-w-lg">
-        <%= label(f, :email) %>
-        <%= email_input(f, :email, required: true) %>
-
-        <%= submit("Send instructions to reset password") %>
-    </.form>
-
+    <%= submit("Send instructions to reset password") %>
+  </.form>
 </article>

@@ -1,97 +1,89 @@
 <h2 class="text-xl">Settings</h2>
 
 <article class="box mt-4">
+  <h3 class="font-bold text-lg">Profile settings</h3>
 
-    <h3 class="font-bold text-lg">Profile settings</h3>
+  <.form
+    let={f}
+    for={@profile_changeset}
+    action={Routes.user_settings_path(@conn, :update)}
+    id="update_profile"
+    class="max-w-lg"
+  >
+    <%= hidden_input(f, :action, name: "action", value: "update_profile") %>
 
-    <.form
-      let={f}
-      for={@profile_changeset}
-      action={Routes.user_settings_path(@conn, :update)}
-      id="update_profile"
-	  class="max-w-lg"
-    >
+    <%= label(f, :username) %>
+    <%= text_input(f, :username, required: true) %>
+    <%= error_tag(f, :username) %>
 
-        <%= hidden_input(f, :action, name: "action", value: "update_profile") %>
+    <%= label(f, :description) %>
+    <%= textarea(f, :description) %>
+    <%= error_tag(f, :description) %>
 
-        <%= label(f, :username) %>
-        <%= text_input(f, :username, required: true) %>
-        <%= error_tag(f, :username) %>
+    <%= label(f, :profile_picture, "Profile picture (include https://)") %>
+    <%= text_input(f, :profile_picture) %>
+    <%= error_tag(f, :profile_picture) %>
 
-        <%= label(f, :description) %>
-        <%= textarea(f, :description) %>
-        <%= error_tag(f, :description) %>
-
-		<%= label(f, :profile_picture, "Profile picture (include https://)") %>
-        <%= text_input(f, :profile_picture) %>
-        <%= error_tag(f, :profile_picture) %>
-
-        <%= submit("Update profile") %>
-    </.form>
-
+    <%= submit("Update profile") %>
+  </.form>
 </article>
 
 <article class="box mt-4">
+  <h3 class="font-bold text-lg">Change email</h3>
 
-    <h3 class="font-bold text-lg">Change email</h3>
+  <.form
+    let={f}
+    for={@email_changeset}
+    action={Routes.user_settings_path(@conn, :update)}
+    id="update_email"
+    class="max-w-lg"
+  >
+    <%= hidden_input(f, :action, name: "action", value: "update_email") %>
 
-    <.form
-      let={f}
-      for={@email_changeset}
-      action={Routes.user_settings_path(@conn, :update)}
-      id="update_email"
-	  class="max-w-lg"
-    >
+    <%= label(f, :email) %>
+    <%= email_input(f, :email, required: true) %>
+    <%= error_tag(f, :email) %>
 
-        <%= hidden_input(f, :action, name: "action", value: "update_email") %>
+    <%= label(f, :current_password, for: "current_password_for_email") %>
+    <%= password_input(f, :current_password,
+      required: true,
+      name: "current_password",
+      id: "current_password_for_email"
+    ) %>
+    <%= error_tag(f, :current_password) %>
 
-        <%= label(f, :email) %>
-        <%= email_input(f, :email, required: true) %>
-        <%= error_tag(f, :email) %>
-
-        <%= label(f, :current_password, for: "current_password_for_email") %>
-        <%= password_input(f, :current_password,
-          required: true,
-          name: "current_password",
-          id: "current_password_for_email"
-        ) %>
-        <%= error_tag(f, :current_password) %>
-
-        <%= submit("Change email") %>
-    </.form>
-
+    <%= submit("Change email") %>
+  </.form>
 </article>
 
 <article class="box mt-4">
+  <h3 class="font-bold text-lg">Change password</h3>
 
-	<h3 class="font-bold text-lg">Change password</h3>
+  <.form
+    let={f}
+    for={@password_changeset}
+    action={Routes.user_settings_path(@conn, :update)}
+    id="update_password"
+    class="max-w-lg"
+  >
+    <%= hidden_input(f, :action, name: "action", value: "update_password") %>
 
-	<.form
-	let={f}
-	for={@password_changeset}
-	action={Routes.user_settings_path(@conn, :update)}
-	id="update_password"
-	class="max-w-lg"
-	>
-		<%= hidden_input(f, :action, name: "action", value: "update_password") %>
+    <%= label(f, :password, "New password") %>
+    <%= password_input(f, :password, required: true) %>
+    <%= error_tag(f, :password) %>
 
-		<%= label(f, :password, "New password") %>
-		<%= password_input(f, :password, required: true) %>
-		<%= error_tag(f, :password) %>
+    <%= label(f, :password_confirmation, "Confirm new password") %>
+    <%= password_input(f, :password_confirmation, required: true) %>
+    <%= error_tag(f, :password_confirmation) %>
 
-		<%= label(f, :password_confirmation, "Confirm new password") %>
-		<%= password_input(f, :password_confirmation, required: true) %>
-		<%= error_tag(f, :password_confirmation) %>
+    <%= label(f, :current_password, for: "current_password_for_password") %>
+    <%= password_input(f, :current_password,
+      required: true,
+      name: "current_password",
+      id: "current_password_for_password"
+    ) %>
+    <%= error_tag(f, :current_password) %>
 
-		<%= label(f, :current_password, for: "current_password_for_password") %>
-		<%= password_input(f, :current_password,
-		required: true,
-		name: "current_password",
-		id: "current_password_for_password"
-		) %>
-		<%= error_tag(f, :current_password) %>
-
-		<%= submit("Change password") %>
-	</.form>
-
+    <%= submit("Change password") %>
+  </.form>
 </article>

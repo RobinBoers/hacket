@@ -1,12 +1,15 @@
 <article class="box">
+  <h2 class="font-bold text-xl">Resend confirmation instructions</h2>
 
-    <h2 class="font-bold text-xl">Resend confirmation instructions</h2>
+  <.form
+    let={f}
+    for={:user}
+    action={Routes.user_confirmation_path(@conn, :create)}
+    class="max-w-lg"
+  >
+    <%= label(f, :email) %>
+    <%= email_input(f, :email, required: true) %>
 
-    <.form let={f} for={:user} action={Routes.user_confirmation_path(@conn, :create)} class="max-w-lg">
-        <%= label(f, :email) %>
-        <%= email_input(f, :email, required: true) %>
-
-        <%= submit("Resend confirmation instructions") %>
-    </.form>
-
+    <%= submit("Resend confirmation instructions") %>
+  </.form>
 </article>

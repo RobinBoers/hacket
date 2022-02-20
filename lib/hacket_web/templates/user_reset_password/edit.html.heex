@@ -1,17 +1,20 @@
 <article class="box">
+  <h2 class="font-bold text-xl">Reset password</h2>
 
-    <h2 class="font-bold text-xl">Reset password</h2>
+  <.form
+    let={f}
+    for={@changeset}
+    action={Routes.user_reset_password_path(@conn, :update, @token)}
+    class="max-w-lg"
+  >
+    <%= label(f, :password, "New password") %>
+    <%= password_input(f, :password, required: true) %>
+    <%= error_tag(f, :password) %>
 
-    <.form let={f} for={@changeset} action={Routes.user_reset_password_path(@conn, :update, @token)} class="max-w-lg">
-        <%= label(f, :password, "New password") %>
-        <%= password_input(f, :password, required: true) %>
-        <%= error_tag(f, :password) %>
+    <%= label(f, :password_confirmation, "Confirm new password") %>
+    <%= password_input(f, :password_confirmation, required: true) %>
+    <%= error_tag(f, :password_confirmation) %>
 
-        <%= label(f, :password_confirmation, "Confirm new password") %>
-        <%= password_input(f, :password_confirmation, required: true) %>
-        <%= error_tag(f, :password_confirmation) %>
-
-        <%= submit("Reset password") %>
-    </.form>
-
+    <%= submit("Reset password") %>
+  </.form>
 </article>

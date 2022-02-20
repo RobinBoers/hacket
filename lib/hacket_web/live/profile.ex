@@ -9,6 +9,8 @@ defmodule HacketWeb.Profile do
   alias Hacket.Accounts
   alias HacketWeb.Pagination
 
+  import Ecto.Query
+
   @per_page 15
 
   @impl true
@@ -16,21 +18,25 @@ defmodule HacketWeb.Profile do
     user = Accounts.get_user_by_username(username)
 
     case user do
-      nil -> raise HacketWeb.NotFoundError
+      nil ->
+        raise HacketWeb.NotFoundError
+
       user ->
-        {:ok, socket
-        |> assign(page_title: "#{String.capitalize(user.username)} (@#{user.username})")
-        |> assign(user: user)
-        |> assign(page: 1)
-        |> assign(per_page: @per_page)
-        |> assign(total: Pagination.total(user, :posts))
-        |> assign(posts: get_posts(user, 1))}
+        {:ok,
+         socket
+         |> assign(page_title: "#{String.capitalize(user.username)} (@#{user.username})")
+         |> assign(user: user)
+         |> assign(page: 1)
+         |> assign(per_page: @per_page)
+         |> assign(total: Pagination.total(user, :posts))
+         |> assign(posts: get_posts(user, 1))}
     end
   end
 
   def get_posts(user, page) do
     user
     |> Ecto.assoc(:posts)
+    |> order_by({:desc, :inserted_at})
     |> Pagination.paginate(page, @per_page)
     |> Repo.all()
   end
