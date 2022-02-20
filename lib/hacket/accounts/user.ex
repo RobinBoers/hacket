@@ -4,6 +4,8 @@ defmodule Hacket.Accounts.User do
 
   alias Hacket.Posts.Post
 
+  @forbidden_usernames ["blog", "external"]
+
   schema "users" do
     field :email, :string
     field :password, :string, virtual: true, redact: true
@@ -32,7 +34,18 @@ defmodule Hacket.Accounts.User do
     |> validate_format(:username, ~r/^[a-z0-9]*$/)
     |> validate_length(:username, min: 3)
     |> unique_constraint(:username)
+    |> validate_username_for_blacklist()
   end
+
+  defp validate_username_for_blacklist(%{changes: %{username: username}} = changeset) do
+    if TheBigUsernameBlacklist.valid?(username, @forbidden_usernames) do
+      changeset
+    else
+      add_error(changeset, :username, "blacklisted username.")
+    end
+  end
+
+  defp validate_username_for_blacklist(changeset), do: changeset
 
   @doc """
   A user changeset for registration.
