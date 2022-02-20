@@ -19,6 +19,8 @@ defmodule HacketWeb.Router do
       pipe_through :browser
 
       live "/", Page.Index
+      live "/about", Page.About
+
       live "/post/:id", Post
       live "/user/:username", Profile
       live "/search", Search
