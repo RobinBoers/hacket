@@ -1,0 +1,42 @@
+<%= if @searching do %>
+    <h2 class="text-xl">Search results for "<%= @query %>"</h2>
+<% else %>
+    <h2 class="text-xl">Discover</h2>
+<% end %>
+
+<article class="box mt-4">
+    <.form
+    let={f}
+    for={:search}
+    phx-change="search"
+    phx-submit="search"
+    class="flex flex-row gap-2"
+  >
+    <%= if @searching do %>
+        <%= text_input(f, :query, value: @query) %>
+    <% else %>
+        <%= text_input(f, :query) %>
+    <% end %>
+    <%= submit("Search", class: "my-0") %>
+  </.form>
+</article>
+
+<h3 class="text-xl mt-4 border-gray-300 border-b pb-1">Results</h3>
+
+<ul>
+    <%= for user <- @results do %>
+        <li class="box flex flex-row flex-wrap gap-2 mt-4">
+            <img
+                class="h-16 w-auto"
+                src={
+                user.profile_picture ||
+                    "https://avatars.dicebear.com/api/identicon/#{@user.username}.svg?b=%23F9FAFB"
+                }
+            />
+            <div>
+                <%= live_redirect(String.capitalize(user.username), to: live_path(Endpoint, Profile, user.username), class: "text-2xl") %>
+                <p class="font-medium">@<%= user.username %></p>
+            </div>
+        </li>
+    <% end %>
+</ul>

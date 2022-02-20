@@ -24,7 +24,10 @@ defmodule Hacket.Posts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post!(id) do
+    Repo.get!(Post, id)
+    |> Repo.preload(:user)
+  end
 
   @doc """
   Gets a single post.
@@ -40,7 +43,10 @@ defmodule Hacket.Posts do
       nil
 
   """
-  def get_post(id), do: Repo.get(Post, id)
+  def get_post(id) do
+    Repo.get(Post, id)
+    |> Repo.preload(:user)
+  end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for changing a post.
@@ -61,5 +67,16 @@ defmodule Hacket.Posts do
   def create_post(user, post_params) do
     Ecto.build_assoc(user, :posts, post_params)
     |> Repo.insert()
+  end
+
+  @doc """
+  Displays post content as HTML.
+  """
+  def show_content(post) do
+    post.body
+    |> String.trim()
+    |> Earmark.as_html!()
+    |> HtmlSanitizeEx.markdown_html()
+    |> Phoenix.HTML.raw()
   end
 end

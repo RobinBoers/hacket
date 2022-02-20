@@ -2,7 +2,7 @@ defmodule HacketWeb.NewPost do
   @moduledoc """
   LiveView for writing new posts.
   """
-  use HacketWeb, :live_view
+  use HacketWeb, :live_component
 
   alias Hacket.Posts
   alias Hacket.Posts.Post
@@ -10,7 +10,7 @@ defmodule HacketWeb.NewPost do
   alias HacketWeb.{Endpoint, Profile}
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(socket) do
     socket =
       socket
       |> assign(page_title: "New post")

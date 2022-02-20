@@ -14,19 +14,15 @@ defmodule HacketWeb.Router do
     plug :fetch_current_user
   end
 
-  scope "/", HacketWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-
-    live "/user/:username", Profile
-  end
-
   live_session :default, on_mount: Hooks.FetchUser do
     scope "/", HacketWeb do
-      pipe_through [:browser, :require_authenticated_user]
+      pipe_through :browser
 
-      live "/post/new", NewPost
+      live "/", Page.Index
+      live "/post/:id", Post
+      live "/user/:username", Profile
+      live "/search", Search
+      live "/search/:query", Search
     end
   end
 

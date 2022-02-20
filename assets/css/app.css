@@ -2,13 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
+@layer base {
     body, html {
-        @apply w-full h-full flex flex-col;
-    }
-
-    main.container {
-        @apply flex flex-col flex-grow;
+        @apply h-full flex flex-col;
     }
 
     a {
@@ -42,8 +38,15 @@
     [type="button"],
     [type="reset"],
     [type="submit"] {
-        @apply block mt-4 bg-gray-300 border border-gray-600 hover:bg-gray-200 transition duration-100 p-1 px-2;
-    }
+        @apply block button;
+    }    
+
+    @media screen and (min-width: 960px) {
+        html {
+            margin-left: calc(100vw - 100%);
+            margin-right: 0;
+        }
+    }    
 }
 
 @layer components {
@@ -73,6 +76,14 @@
         @apply bg-gray-200 p-1;
     }
 
+    .button, .btn {
+        @apply block mt-4 bg-gray-300 border border-gray-600 hover:bg-gray-200 transition duration-100 p-1 px-2
+    }
+
+    a.button, a.btn {
+        @apply text-black my-0;
+    }
+
     /* LiveView */
 
     .phx-no-feedback.invalid-feedback,
@@ -90,10 +101,22 @@
 }
 
 @layer utilities {
+    .container {
+        @apply max-w-4xl !important;
+    }
+
+    .grow {
+        @apply flex flex-col flex-grow;
+    }
+
     .content {
-        @apply max-w-lg;
+        @apply max-w-xl;
     }
     .content p {
         @apply mb-2;
     }
+}
+
+main.container, .phx-connected {
+    @apply grow;
 }

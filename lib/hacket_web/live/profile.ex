@@ -6,7 +6,7 @@ defmodule HacketWeb.Profile do
 
   alias Hacket.Repo
 
-  alias Hacket.Accounts
+  alias Hacket.{Accounts, Posts}
   alias HacketWeb.Pagination
 
   import Ecto.Query
@@ -52,13 +52,5 @@ defmodule HacketWeb.Profile do
       |> assign(secrets: get_posts(user, page))
 
     {:noreply, socket}
-  end
-
-  defp show_content(post) do
-    post.body
-    |> String.trim()
-    |> Earmark.as_html!()
-    |> HtmlSanitizeEx.markdown_html()
-    |> raw()
   end
 end
