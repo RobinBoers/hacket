@@ -6,8 +6,11 @@ defmodule HacketWeb.Profile do
 
   alias Hacket.Repo
 
-  alias Hacket.{Accounts, Posts}
+  alias Hacket.{Accounts}
   alias HacketWeb.Pagination
+
+  alias HacketWeb.{Endpoint}
+  import Routes
 
   import Ecto.Query
   import Hacket

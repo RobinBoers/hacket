@@ -10,7 +10,6 @@ defmodule Hacket do
   """
   def markdown(text) do
     text
-    |> IO.inspect()
     |> String.trim()
     |> Earmark.as_html!()
     |> HtmlSanitizeEx.basic_html()

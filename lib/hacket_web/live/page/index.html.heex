@@ -52,8 +52,7 @@
           <a href="https://github.com/RobinBoers/hacket">Source</a>
         </li>
         <li>
-          <%= link("Blog", to: "/blog") %>
-          <!-- Change when blog is implemented -->
+          <%= link("Blog", to: live_path(Endpoint, Page.Blog)) %>
         </li>
       </ul>
     </article>
@@ -81,12 +80,11 @@
   <ul class="max-w-2xl mx-auto flex flex-row flex-wrap gap-10 justify-center text-lg my-3">
     <li>&copy; <%= Date.utc_today().year %> hacket</li>
     <li>
-      <%= link("Privacy", to: "/blog") %>
+      <%= link("Privacy", to: "/privacy") %>
       <!-- Change when privacy policy is implemented -->
     </li>
     <li>
-      <%= link("Blog", to: "/blog") %>
-      <!-- Change when blog is implemented -->
+      <%= link("Blog", to: live_path(Endpoint, Page.Blog)) %>
     </li>
     <li>
       <a href="https://github.com/RobinBoers/hacket">Source</a>

@@ -4,7 +4,7 @@ defmodule HacketWeb.Page.Index do
   """
   use HacketWeb, :live_view
 
-  alias HacketWeb.{Endpoint, NewPost, Profile}
+  alias HacketWeb.{Endpoint, Page, NewPost, Profile}
   import Routes
 
   def mount(_params, _session, socket) do
