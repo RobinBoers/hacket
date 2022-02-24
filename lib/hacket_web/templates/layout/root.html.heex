@@ -33,7 +33,10 @@
     <header class="my-6">
       <section class="container flex flex-row flex-wrap justify-between items-center">
         <h1 class="text-4xl font-semibold tracking-tighter font-mono">
-          <%= live_redirect "<hacket/>", to: live_path(@conn, Page.Index), class: "hover:no-underline" %>
+          <%= live_redirect("<hacket/>",
+            to: live_path(@conn, Page.Index),
+            class: "hover:no-underline"
+          ) %>
         </h1>
         <nav>
           <ul class="flex flex-row flex-wrap gap-6">
@@ -72,11 +75,15 @@
       <nav class="container">
         <ul class="box flex flex-row flex-wrap gap-6">
           <%= if @current_user do %>
-            <li><%= live_redirect "My profile", to: live_path(@conn, Profile, @current_user.username) %></li>
+            <li>
+              <%= live_redirect("My profile",
+                to: live_path(@conn, Profile, @current_user.username)
+              ) %>
+            </li>
           <% end %>
-          <li><%= live_redirect "Discover", to: live_path(@conn, Search) %></li>
-          <li><%= live_redirect "Blog", to: "/blog" %></li>
-          <li><%= live_redirect "About", to: "/about" %></li>
+          <li><%= live_redirect("Discover", to: live_path(@conn, Search)) %></li>
+          <li><%= live_redirect("Blog", to: live_path(@conn, Page.Blog)) %></li>
+          <li><%= live_redirect("About", to: live_path(@conn, Page.About)) %></li>
         </ul>
       </nav>
     </header>

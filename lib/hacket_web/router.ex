@@ -20,6 +20,7 @@ defmodule HacketWeb.Router do
 
       live "/", Page.Index
       live "/about", Page.About
+      live "/blog", Page.Blog
 
       live "/post/:id", Post
       live "/user/:username", Profile
