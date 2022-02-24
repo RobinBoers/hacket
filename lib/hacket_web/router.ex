@@ -26,6 +26,7 @@ defmodule HacketWeb.Router do
       live "/user/:username", Profile
       live "/search", Search
       live "/search/:query", Search
+      get "/feed/:username", FeedController, :rss
     end
   end
 

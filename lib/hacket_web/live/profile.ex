@@ -10,6 +10,7 @@ defmodule HacketWeb.Profile do
   alias HacketWeb.Pagination
 
   import Ecto.Query
+  import Hacket
 
   @per_page 15
 

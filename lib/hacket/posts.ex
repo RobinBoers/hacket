@@ -68,15 +68,4 @@ defmodule Hacket.Posts do
     Ecto.build_assoc(user, :posts, post_params)
     |> Repo.insert()
   end
-
-  @doc """
-  Displays post content as HTML.
-  """
-  def show_content(post) do
-    post.body
-    |> String.trim()
-    |> Earmark.as_html!()
-    |> HtmlSanitizeEx.markdown_html()
-    |> Phoenix.HTML.raw()
-  end
 end

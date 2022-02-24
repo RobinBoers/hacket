@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <%= RSS.channel(
+            "#{String.capitalize(@user.username)}'s feed · hacket", 
+            "#{current_url(@conn)}/user/#{@user.username}", 
+            @user.description, 
+            to_rfc822(datetime()), 
+            "en-us"
+        ) %>
+    </channel>
+    <%= for post <- @posts do %>
+        <%= RSS.item(post.title, markdown(post.body) |> safe_to_string(), to_rfc822(post.inserted_at), "#{current_url(@conn)}/post/#{post.id}", "#{current_url(@conn)}/post/#{post.id}") %>
+    <% end %>
+</rss>

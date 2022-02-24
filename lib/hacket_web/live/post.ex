@@ -8,6 +8,7 @@ defmodule HacketWeb.Post do
   alias HacketWeb.{Endpoint, Profile}
 
   import Routes
+  import Hacket
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do

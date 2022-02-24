@@ -32,7 +32,7 @@
         <p class="font-semibold text-xl"><%= String.capitalize(@user.username) %></p>
       </div>
 
-      <div class="content"><%= Posts.show_content(post) %></div>
+      <div class="content"><%= markdown(post.body) %></div>
 
       <p class="text-gray-400 mt-3">
         <%= "#{post.inserted_at.hour}:#{String.pad_leading("#{post.inserted_at.minute}", 2, "00")}" %>
@@ -74,7 +74,7 @@
           <p class="font-semibold text-xl"><%= String.capitalize(@user.username) %></p>
         </div>
 
-        <div class="max-w-lg text-2xl"><%= Posts.show_content(post) %></div>
+        <div class="max-w-lg text-2xl"><%= markdown(post.body) %></div>
       </article>
     <% end %>-->
   <% end %>
