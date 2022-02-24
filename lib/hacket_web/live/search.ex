@@ -13,7 +13,7 @@ defmodule HacketWeb.Search do
 
   @impl true
   def mount(_params, _session, socket) do
-      {:ok, socket}
+    {:ok, socket}
   end
 
   @impl true
@@ -42,6 +42,7 @@ defmodule HacketWeb.Search do
   def handle_event("search", %{"search" => %{"query" => ""}}, socket) do
     {:noreply, push_patch(socket, to: live_path(Endpoint, __MODULE__))}
   end
+
   def handle_event("search", %{"search" => %{"query" => query}}, socket) do
     {:noreply, push_patch(socket, to: live_path(Endpoint, __MODULE__, query))}
   end
