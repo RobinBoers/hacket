@@ -9,7 +9,7 @@ defmodule HacketWeb.Profile do
   alias Hacket.{Accounts}
   alias HacketWeb.Pagination
 
-  alias HacketWeb.{Endpoint}
+  alias HacketWeb.{Endpoint, Post}
   import Routes
 
   import Ecto.Query

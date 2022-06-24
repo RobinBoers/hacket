@@ -1,16 +1,16 @@
-<article class="box flex flex-row flex-wrap gap-3 justify-start items-start">
+<article class="box flex flex-row flex-wrap gap-3 justify-start items-start h-card">
   <img
-    class="h-24 w-auto"
+    class="h-24 w-auto u-photo"
     src={
       @user.profile_picture ||
         "https://avatars.dicebear.com/api/identicon/#{@user.username}.svg?b=%23F9FAFB"
     }
   />
   <div>
-    <p class="text-3xl"><%= String.capitalize(@user.username) %></p>
-    <h2 class="font-bold text-lg">@<%= @user.username %></h2>
+    <p class="text-3xl p-nickname"><%= String.capitalize(@user.username) %></p>
+    <h2 class="font-bold text-lg p-name">@<%= @user.username %></h2>
 
-    <p class="mt-3 max-w-lg">
+    <p class="mt-3 max-w-lg p-note">
       <%= @user.description || raw("<i class='text-gray-600'>No description available.</i>") %>
     </p>
 
@@ -24,23 +24,31 @@
 
 <%= for post <- @posts do %>
   <%= if post.body != nil do %>
-    <article class="mt-4 py-3">
-      <div class="flex flex-row items-start gap-2 mb-2">
+    <article class="mt-4 py-3 h-entry">
+      <div class="flex flex-row items-start gap-2 mb-2 p-author h-card">
         <img
-          class="w-10 h-10 object-cover border"
+          class="w-10 h-10 object-cover border u-photo"
           src={
             @user.profile_picture ||
               "https://avatars.dicebear.com/api/identicon/#{@user.username}.svg?b=%23F9FAFB"
           }
         />
-        <p class="font-semibold text-xl"><%= String.capitalize(@user.username) %></p>
+        <p class="font-semibold text-xl p-name"><%= String.capitalize(@user.username) %></p>
       </div>
 
-      <div class="content"><%= markdown(post.body) %></div>
+      <div class="content p-name p-summary e-content"><%= markdown(post.body) %></div>
 
-      <p class="text-gray-400 mt-3">
-        <%= "#{post.inserted_at.hour}:#{String.pad_leading("#{post.inserted_at.minute}", 2, "00")}" %>
-        · <%= post.inserted_at |> NaiveDateTime.to_date() |> Date.to_string() %>
+      <p class="mt-3">
+        <%
+          date = post.inserted_at |> NaiveDateTime.to_date() |> Date.to_string()
+          time = "#{post.inserted_at.hour}:#{String.pad_leading("#{post.inserted_at.minute}", 2, "00")}"
+        %>
+
+        <%= live_redirect(to: live_path(Endpoint, Post, post.id), class: "text-gray-400 hover:text-gray-400 u-url hover:no-underline") do %>
+          <time class="dt-published" datetime={"#{date} #{time}"}>
+            <%= time %> · <%= date %>
+          </time>
+        <% end %>
       </p>
     </article>
 
