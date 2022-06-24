@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
+        <atom:link href="<%= "#{current_url(@conn)}/feed/#{@user.username}" %>" rel="self" type="application/rss+xml" />
+
         <%= RSS.channel(
             "#{String.capitalize(@user.username)}'s feed · hacket", 
             "#{current_url(@conn)}/user/#{@user.username}", 
@@ -8,8 +10,9 @@
             to_rfc822(datetime()), 
             "en-us"
         ) %>
+        
+        <%= for post <- @posts do %>
+            <%= RSS.item(post.title, markdown(post.body) |> safe_to_string(), to_rfc822(post.inserted_at), "#{current_url(@conn)}/post/#{post.id}", "#{current_url(@conn)}/post/#{post.id}") %>
+        <% end %>
     </channel>
-    <%= for post <- @posts do %>
-        <%= RSS.item(post.title, markdown(post.body) |> safe_to_string(), to_rfc822(post.inserted_at), "#{current_url(@conn)}/post/#{post.id}", "#{current_url(@conn)}/post/#{post.id}") %>
-    <% end %>
 </rss>
