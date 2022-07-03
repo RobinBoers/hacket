@@ -1,6 +1,5 @@
 defmodule Hacket.Accounts.User do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use Hacket.Schema
 
   alias Hacket.Posts.Post
 

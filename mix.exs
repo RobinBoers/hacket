@@ -46,7 +46,8 @@ defmodule Hacket.MixProject do
       {:html_sanitize_ex, "~> 1.4"},
       {:the_big_username_blacklist, "~> 0.1.2"},
       {:rss, "~> 0.2.1", github: "BennyHallett/elixir-rss"},
-      {:calendar, "~> 1.0.0"}
+      {:calendar, "~> 1.0.0"},
+      {:typed_ecto_schema, "~> 0.4.1", runtime: false}
     ]
 
   defp aliases,
