@@ -1,4 +1,4 @@
-# Hacket
+# hacket
 
 hacket is a blogging platform powered by humans. get rid of the tracking, ads and harrasment, and use hacket instead. hacket allows you to broadcast your voice on a platform built for stability and security, based on open-source technologies like Markdown, Elixir, Phoenix LiveView and git.
 
