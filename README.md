@@ -16,6 +16,6 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 - Official website: <https://hacket.co.nl>
 - Guides: <https://web.libra.chat/#hacket>
-- Docs: <https://github.com/h-cket/hacket/wiki>
-- Forum: <https://github.com/h-cket/hacket/discussions>
-- Source: <https://github.com/h-cket/hacket>
+- Docs: <https://github.com/libre0b11/hacket/wiki>
+- Forum: <https://github.com/libre0b11/hacket/discussions>
+- Source: <https://github.com/libre0b11/hacket>
