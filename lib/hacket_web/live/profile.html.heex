@@ -7,7 +7,7 @@
     }
   />
   <div>
-    <p class="text-3xl p-nickname"><%= String.capitalize(@user.username) %></p>
+    <p class="text-3xl p-nickname"><%= @user.display_name || String.capitalize(@user.username) %></p>
     <h2 class="font-bold text-lg p-name">@<%= @user.username %></h2>
 
     <p class="mt-3 max-w-lg p-note">
@@ -33,7 +33,7 @@
               "https://avatars.dicebear.com/api/identicon/#{@user.username}.svg?b=%23F9FAFB"
           }
         />
-        <p class="font-semibold text-xl p-name"><%= String.capitalize(@user.username) %></p>
+        <p class="font-semibold text-xl p-name"><%= @user.display_name || String.capitalize(@user.username) %></p>
       </div>
 
       <div class="content p-name p-summary e-content"><%= markdown(post.body) %></div>

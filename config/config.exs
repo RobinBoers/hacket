@@ -3,6 +3,8 @@ import Config
 config :hacket,
   ecto_repos: [Hacket.Repo]
 
+config :hacket, Hacket.Repo, migration_primary_key: [name: :id, type: :uuid]
+
 config :hacket, HacketWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: HacketWeb.ErrorView, accepts: ~w(html json), layout: false],

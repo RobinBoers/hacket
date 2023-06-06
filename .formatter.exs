@@ -1,6 +1,5 @@
 [
   import_deps: [:ecto, :phoenix],
-  plugins: [HeexFormatter],
   inputs: [
     "*.{ex,exs}",
     "*.{heex,ex,exs}",

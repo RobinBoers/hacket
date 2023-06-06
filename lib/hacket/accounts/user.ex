@@ -11,6 +11,7 @@ defmodule Hacket.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
     field :username, :string
+    field :display_name, :string
     field :description, :string
     field :profile_picture, :string
     has_many :posts, Post
@@ -23,14 +24,16 @@ defmodule Hacket.Accounts.User do
   """
   def profile_changeset(user, attrs \\ %{}) do
     user
-    |> cast(attrs, [:username, :description, :profile_picture])
+    |> cast(attrs, [:username, :display_name, :description, :profile_picture])
     |> validate_username()
   end
 
   defp validate_username(changeset) do
     changeset
     |> validate_required(:username)
-    |> validate_format(:username, ~r/^[a-z0-9]*$/)
+    |> validate_format(:username, ~r/^[a-z0-9]*$/,
+      message: "only lowercase alphanumeric usernames allowed"
+    )
     |> validate_length(:username, min: 3)
     |> unique_constraint(:username)
     |> validate_username_for_blacklist()

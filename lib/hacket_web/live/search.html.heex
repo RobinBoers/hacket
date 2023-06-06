@@ -24,11 +24,11 @@
         class="h-16 w-auto"
         src={
           user.profile_picture ||
-            "https://avatars.dicebear.com/api/identicon/#{@user.username}.svg?b=%23F9FAFB"
+            "https://avatars.dicebear.com/api/identicon/#{user.username}.svg?b=%23F9FAFB"
         }
       />
       <div>
-        <%= live_redirect(String.capitalize(user.username),
+        <%= live_redirect(user.display_name || String.capitalize(user.username),
           to: live_path(Endpoint, Profile, user.username),
           class: "text-2xl"
         ) %>

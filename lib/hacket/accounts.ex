@@ -146,12 +146,9 @@ defmodule Hacket.Accounts do
   ## Examples
 
   """
-  def update_user_profile(user, username, description, profile_picture) do
-    User.profile_changeset(user, %{
-      username: username,
-      description: description,
-      profile_picture: profile_picture
-    })
+  def update_user_profile(user, user_params) do
+    user
+    |> User.profile_changeset(user_params)
     |> Repo.update()
   end
 

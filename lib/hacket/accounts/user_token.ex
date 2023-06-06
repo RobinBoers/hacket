@@ -1,5 +1,6 @@
 defmodule Hacket.Accounts.UserToken do
-  use Ecto.Schema
+  use Hacket.Schema
+
   import Ecto.Query
 
   @hash_algorithm :sha256
